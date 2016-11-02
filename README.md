@@ -1,9 +1,6 @@
 # Holiday API
 
-Holiday API is website (and soon to be stand-alone PHP class) for obtaining
-information about holidays. The project was started as a personal challenge to
-see if I could generate holiday lists on the fly for any date instead of
-keeping a static list in a database.
+Holiday API is a fork of joshtronic's (https://github.com/joshtronic) original code for obtaining information about holidays. 
 
 ## Local Development
 
