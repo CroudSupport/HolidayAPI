@@ -18,8 +18,8 @@ RUN mkdir -p /var/www/app_tmp
 
 WORKDIR /var/www/app_tmp
 
-COPY ./composer.json ./
-COPY ./composer.lock ./
+COPY ./src/composer.json ./
+COPY ./src/composer.lock ./
 
 RUN composer install  --no-scripts --no-autoloader --no-dev
 
@@ -36,7 +36,7 @@ ENV CRON_TABS_LOCATION /var/www/holidays/docker_build/crontabs
 COPY ./docker_build/startup_scripts/* /etc/container_start_scripts/
 RUN chmod +x /etc/container_start_scripts/*
 
-COPY ./ ./
+COPY ./src ./
 
 RUN rsync -ah /var/www/app_tmp/* ${WEBAPP_ROOT}/
 RUN rm -fr /var/www/app_tmp
