@@ -1,0 +1,40 @@
+clone:
+  git:
+    image: plugins/git
+    tags: true
+pipeline:
+
+  setup-image-tag:
+    image: croudtech/drone-pipeline-setup:latest
+    pull: true
+    privileged: true
+    secrets: [ ecr_access_key, ecr_secret_key ]
+    environment:
+      - DOCKER_REPO=856701484489.dkr.ecr.eu-west-2.amazonaws.com/croudtech-aws/holidays-api
+      - PROTECTED_FILES_LOCATION=/public/protected-files
+      - PUBLIC_FOLDER=/public
+
+  publish-ecr:
+    image: croudtech/drone-docker-ecr:latest
+    repo: 856701484489.dkr.ecr.eu-west-2.amazonaws.com/croudtech-aws/holidays-api
+    registry: 856701484489.dkr.ecr.eu-west-2.amazonaws.com
+    region: eu-west-2
+    pull: true
+    skip_untagged: true
+    privileged: true
+    secrets: [ ecr_access_key, ecr_secret_key ]
+
+  slack:
+    image: plugins/slack
+    webhook: SLACK_WEBHOOK
+    channel: docker
+    template: >
+     {{#success build.status}}
+       ${DRONE_REPO_NAME,,} -> build {{build.number}} with commit message ${DRONE_COMMIT_MESSAGE} succeeded. Good job ${DRONE_COMMIT_AUTHOR}. ${DRONE_COMMIT_LINK}
+     {{else}}
+       ${DRONE_REPO_NAME,,} -> build {{build.number}} with commit message ${DRONE_COMMIT_MESSAGE} failed. Fix me please ${DRONE_COMMIT_AUTHOR}. ${DRONE_COMMIT_LINK}
+     {{/success}}
+    when:
+      status: [ success, failure ]
+    secrets: [ SLACK_WEBHOOK ]
+
