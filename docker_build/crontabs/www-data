@@ -1,3 +1,4 @@
 # NOTE: a blank line is required at the end of this file.
 
 * * * * * /usr/local/bin/run-on-leader-wrapper.sh /usr/local/bin/php /var/www/holidays/artisan schedule:run >> /var/www/holidays/cron.log 2>&1
+
