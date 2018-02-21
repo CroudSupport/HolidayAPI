@@ -31,11 +31,8 @@ ENV CONFIG_DIR /var/www/holidays/server_config
 ENV NGINX_HOSTNAME holidays
 ENV APP_LOG=errorlog
 
-ENV CRON_TABS_LOCATION /var/www/holidays/docker_build/crontabs
-
-COPY ./docker_build/startup_scripts/* /etc/container_start_scripts/
-RUN chmod +x /etc/container_start_scripts/*
-
+ENV CRON_TABS_LOCATION /usr/share/docker_build/crontabs
+COPY ./docker_build /usr/share/docker_build
 COPY ./src ./
 
 RUN rsync -ah /var/www/app_tmp/* ${WEBAPP_ROOT}/
