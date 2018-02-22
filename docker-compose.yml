@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    build: ./
+    image: croudtech/holidays:dev
+    volumes:
+      - ./src:/var/www/holidays
+      - ./docker_build:/usr/share/docker_build
+    ports:
+      - 8080:80
+      - 8443:443
