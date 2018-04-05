@@ -1,3 +1,9 @@
-# Croud PHP Coding Test
+# Holiday API Database Driven
+This is a Database Driven version of Joshtronics API
 
-See [/src/README.md](src/README.md) for details 
+## To setup run migrations
+```php artisan migrate```
+
+
+## Import JSON
+```php artisan generate:holidays```
